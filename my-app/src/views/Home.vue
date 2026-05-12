@@ -26,7 +26,7 @@ function eseguiLogout() {
 <template>
   <v-layout>
     
-    <v-navigation-drawer v-model="drawer" temporary style="z-index: 9999 !important;">
+    <v-navigation-drawer v-model="drawer" temporary >
       <v-list color="primary">
         <v-list-item prepend-icon="mdi-home" to="/" link>
           <v-list-item-title>Homepage</v-list-item-title>
@@ -89,7 +89,6 @@ function eseguiLogout() {
         <h1>Benvenuto nella tua cucina digitale!</h1>
         <p>Seleziona una categoria dalla sidebar per iniziare a cucinare.</p>
         
-        <slot></slot> 
       </v-container>
 
       <v-dialog v-model="mostraInfo" max-width="400">
