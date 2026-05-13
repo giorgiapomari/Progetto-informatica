@@ -1,29 +1,58 @@
 <script setup>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import db from "@/firestore"; // Assicurati che il percorso sia corretto
+import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
+
+const commentSubject = ref(""); // Oggetto del commento
+const commentText = ref("");    // Testo del commento
+const commenti = ref([]);       // Lista dei commenti da mostrare
+const rules = [value => !!value || 'Campo obbligatorio.'];
+
+// Funzione per caricare i commenti da Firebase
+async function caricaCommenti() {
+    const q = query(collection(db.db, "commenti"), where("recipeId", "==", props.recipeId));
+    try {
+        const querySnapshot = await getDocs(q);
+        commenti.value = [];
+        querySnapshot.forEach((doc) => {
+            commenti.value.push(doc.data());
+        });
+    } catch (e) {
+        console.error("Errore caricamento commenti:", e);
+    }
+}
+
+// Funzione per inviare il commento a Firebase
+async function inviaForm() {
+    if (!commentSubject.value || !commentText.value) return;
+
+    let nuovoCommento = {
+        utente: db.getUser(),
+        recipeId: props.recipeId,
+        quando: new Date(),
+        titolo: commentSubject.value,
+        testo: commentText.value
+    };
+
+    try {
+        await addDoc(collection(db.db, "commenti"), nuovoCommento);
+        commentSubject.value = "";
+        commentText.value = "";
+        caricaCommenti(); // Ricarica la lista dopo l'invio
+    } catch (e) {
+        alert("Errore nell'inserimento del commento");
+    }
+}
 
 // Riceviamo l'ID della ricetta come prop
 const props = defineProps(['recipeId']);
 const recipe = ref(null);
 const loading = ref(true);
 
-// Mock per i commenti (visto che l'API Spoonacular non gestisce commenti utenti)
-/* const newComment = ref("");
-const comments = ref([
-    { user: 'Marco', text: 'Provata ieri, davvero squisita!' },
-    { user: 'Sara', text: 'Ho aggiunto un pizzico di sale in più, perfetta.' }
-]);*/
-
-const addComment = () => {
-    if (newComment.value.trim()) {
-        comments.value.push({ user: 'Tu', text: newComment.value });
-        newComment.value = "";
-    }
-};
-
 onMounted(async () => {
     // La API Key è di Giorgia Pomari
-    const apiKey = 'ec7c838447f346c1a3851578c84dc92f'; 
+    const apiKey = 'cd31399f04b8490f99a11c2186f522e7';
     const url = `https://api.spoonacular.com/recipes/${props.recipeId}/information?apiKey=${apiKey}`;
 
     try {
@@ -34,6 +63,7 @@ onMounted(async () => {
     } finally {
         loading.value = false;
     }
+    caricaCommenti();
 });
 </script>
 
@@ -79,26 +109,39 @@ onMounted(async () => {
 
         <v-divider class="my-8"></v-divider>
 
+        <v-divider class="my-8"></v-divider>
+
         <v-row>
             <v-col cols="12">
                 <h2 class="mb-4">Commenti</h2>
-                <v-list lines="two">
-                    <v-list-item v-for="(c, i) in comments" :key="i" :subtitle="c.text" :title="c.user">
-                        <template v-slot:prepend>
-                            <v-avatar color="grey-lighten-2">👤</v-avatar>
-                        </template>
-                    </v-list-item>
+
+                <v-card variant="outlined" class="pa-4 mb-6">
+                    <v-form @submit.prevent="inviaForm">
+                        <v-text-field v-model="commentSubject" label="Oggetto" :rules="rules" variant="outlined"
+                            density="compact"></v-text-field>
+                        <v-textarea v-model="commentText" label="Il tuo commento..." :rules="rules" variant="outlined"
+                            rows="3"></v-textarea>
+                        <v-btn color="primary" type="submit" prepend-icon="mdi-send">
+                            Invia Commento
+                        </v-btn>
+                    </v-form>
+                </v-card>
+
+                <v-list lines="three" v-if="commenti.length > 0">
+                    <v-card v-for="(c, i) in commenti" :key="i" class="mb-3" elevation="1">
+                        <v-card-item>
+                            <v-card-title>{{ c.titolo }}</v-card-title>
+                            <v-card-subtitle>
+                                Inviato da: <strong>{{ c.utente }}</strong>
+                            </v-card-subtitle>
+                        </v-card-item>
+                        <v-card-text>{{ c.testo }}</v-card-text>
+                    </v-card>
                 </v-list>
 
-                <v-textarea 
-                    v-model="newComment"
-                    label="Lascia un commento..." 
-                    variant="outlined" 
-                    rows="2"
-                    append-inner-icon="mdi-send"
-                    @click:append-inner="addComment"
-                    class="mt-4"
-                ></v-textarea>
+                <v-alert v-else type="info" variant="tonal">
+                    Nessun commento presente. Sii il primo a commentare!
+                </v-alert>
             </v-col>
         </v-row>
     </v-container>
@@ -109,6 +152,13 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-h1 { color: #2c3e50; font-weight: bold; }
-h2 { border-left: 5px solid #fb8c00; padding-left: 10px; }
+h1 {
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+h2 {
+    border-left: 5px solid #fb8c00;
+    padding-left: 10px;
+}
 </style>

@@ -9,7 +9,7 @@ const props = defineProps(['type']); // 'type' sarà la cucina (es. italian, mex
 const ricette = ref([]);
 const caricamento = ref(false);
 
-const apiKey = 'ec7c838447f346c1a3851578c84dc92f'; // Inserisci qui la tua chiave Spoonacular
+const apiKey = 'cd31399f04b8490f99a11c2186f522e7'; // Inserisci qui la tua chiave Spoonacular
 
 function caricaRicette(cucina) {
     caricamento.value = true;
