@@ -41,7 +41,7 @@ onMounted(() => {
           Benvenut*, {{ nomeUtente }}! 👋
         </h1>
         <h2 class="text-h5 text-grey-darken-1 font-italic mb-6">
-          "Cucinare è un modo di dare, non solo di nutrire."
+          Esplora una cultura diversa ogni giorno
         </h2>
         <p class="text-body-1 text-grey-darken-2">
           Benvenuto su <strong>SpoonApp</strong>, il tuo compagno ideale in cucina. 
@@ -122,7 +122,7 @@ onMounted(() => {
 
 .text-truncate-2 {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
