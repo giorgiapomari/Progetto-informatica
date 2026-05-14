@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 import Signup from '../views/Signup.vue'
 import ElencoRicette from '../views/ElencoRicette.vue'
 import InfoRicetta from '../views/InfoRicetta.vue'
+import Favourites from '../views/Favourites.vue' 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +41,11 @@ const router = createRouter({
       path: '/signup',
       name: 'signup',
       component: Signup
+    },
+    {
+      path: '/favourites',
+      name: 'favourites',
+      component: Favourites
     }
   ],
 })
