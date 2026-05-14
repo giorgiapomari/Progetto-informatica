@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { onBeforeRouteUpdate } from 'vue-router';
+import ListaRicette from '@/components/ListaRicette.vue';
 // Assicurati di avere un componente per la singola card o usa Vuetify direttamente qui
 // import RicettaCard from '@/components/RicettaCard.vue';
 
@@ -50,19 +51,7 @@ onMounted(() => {
         </v-row>
 
         <v-row v-else>
-            <v-col v-for="ricetta in ricette" :key="ricetta.id" cols="12" sm="6" md="4" lg="3">
-                <v-card :to="`/recipe/${ricetta.id}`" link hover class="mx-auto my-2">
-                    <v-img :src="ricetta.image" height="200px" cover></v-img>
-
-                    <v-card-title class="text-subtitle-1">
-                        {{ ricetta.title }}
-                    </v-card-title>
-
-                    <v-card-actions>
-                        <v-btn color="primary" variant="text">Guarda Ricetta</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
+            <lista-ricette :ricette="ricette"></lista-ricette>
 
             <v-col v-if="ricette.length === 0 && !caricamento" cols="12">
                 <v-alert type="info">Nessuna ricetta trovata per questa categoria.</v-alert>
@@ -73,7 +62,7 @@ onMounted(() => {
 
 <style scoped>
 h1 {
-    border-bottom: 2px solid #primary;
+    border-bottom: 2px solid;
     display: inline-block;
 }
 </style>
