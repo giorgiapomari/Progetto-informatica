@@ -15,7 +15,7 @@ const form = reactive({
 
 async function handleSignup() {
   if (!form.username || !form.password) {
-    messages.value.push({ text: "Riempi tutti i campi!", color: 'error' });
+    messages.value.push({ text: "Please fill in all fields!", color: 'error' });
     return;
   }
 
@@ -30,7 +30,7 @@ async function handleSignup() {
 
     await db.registraUtente(nuovoUtente);
     
-    messages.value.push({ text: "Registrazione completata!", color: 'success' });
+    messages.value.push({ text: "Registration completed!", color: 'success' });
     
     // Dopo 2 secondi portalo al login
     setTimeout(() => {
@@ -51,7 +51,7 @@ async function handleSignup() {
       <v-col cols="12" sm="8" md="4">
         <v-card class="elevation-12 pa-4" rounded="lg">
           <v-card-title class="text-h5 text-center font-weight-bold">
-            Crea Account
+            Create Account
           </v-card-title>
           
           <v-card-text>
@@ -59,7 +59,7 @@ async function handleSignup() {
 
               <v-text-field
                 v-model="form.username"
-                label="Scegli un Username"
+                label="Choose a Username"
                 variant="outlined"
                 prepend-inner-icon="mdi-at"
               ></v-text-field>
@@ -80,14 +80,14 @@ async function handleSignup() {
                 :loading="loading"
                 class="mt-4"
               >
-                Registrati
+                Sign Up
               </v-btn>
             </v-form>
           </v-card-text>
 
           <v-card-actions class="justify-center">
             <v-btn variant="text" @click="$router.push('/login')">
-              Hai già un account? Accedi
+              Already have an account? Sign In
             </v-btn>
           </v-card-actions>
         </v-card>

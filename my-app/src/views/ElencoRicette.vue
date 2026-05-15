@@ -11,7 +11,7 @@ const props = defineProps(['type']); // 'type' sarà la cucina (es. italian, mex
 const ricette = ref([]);
 const caricamento = ref(false);
 
-const apiKey = API_KEY; 
+const apiKey = API_KEY;
 const apiBaseUrl = API_BASE_URL;
 
 function caricaRicette(cucina) {
@@ -20,14 +20,15 @@ function caricaRicette(cucina) {
 
     // Endpoint per cercare ricette in base alla cucina (cuisine)
     // ✅ URL CORRETTO (rimosso /food)
-    const url = `${apiBaseUrl}/recipes/complexSearch?cuisine=${cucina}&apiKey=${apiKey}&number=12`;
+    // In elencoRicette.vue
+    const url = `${apiBaseUrl}/recipes/complexSearch?cuisine=${cucina}&apiKey=${apiKey}&number=12&addRecipeInformation=true`;
 
     axios.get(url)
         .then(response => {
             // Spoonacular mette i risultati dentro l'oggetto .results
             ricette.value = response.data.results;
         })
-        .catch(err => console.error("Errore nel caricamento:", err))
+        .catch(err => console.error("Loading error:", err))
         .finally(() => {
             caricamento.value = false;
         });
@@ -46,7 +47,7 @@ onMounted(() => {
 
 <template>
     <v-container>
-        <h1 class="text-capitalize mb-6">Cucina {{ type }}</h1>
+        <h1 class="text-capitalize mb-6">Cuisine {{ type }}</h1>
 
         <v-row v-if="caricamento" justify="center">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
@@ -56,7 +57,7 @@ onMounted(() => {
             <lista-ricette :ricette="ricette"></lista-ricette>
 
             <v-col v-if="ricette.length === 0 && !caricamento" cols="12">
-                <v-alert type="info">Nessuna ricetta trovata per questa categoria.</v-alert>
+                <v-alert type="info">No recipes found for this cuisine.</v-alert>
             </v-col>
         </v-row>
     </v-container>

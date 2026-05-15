@@ -10,7 +10,7 @@ const loginLoading = ref(undefined);
 
 async function login() {
   if (!username.value || !password.value) {
-    messages.value.push({ text: "Dati mancanti!", color: 'warning' });
+    messages.value.push({ text: "Missing data!", color: 'warning' });
     return;
   }
   loginLoading.value = "primary";
@@ -73,7 +73,7 @@ function vaiARegistrazione() {
                 class="mt-4 text-none"
                 elevation="2"
               >
-                Accedi
+                Sign In
               </v-btn>
             </v-form>
           </v-card-text>
@@ -82,7 +82,7 @@ function vaiARegistrazione() {
 
           <v-card-actions class="justify-center">
             <v-btn variant="text" size="small" @click="vaiARegistrazione">
-              Non hai un account? <span class="text-primary ml-1">Registrati</span>
+              Don't have an account? <span class="text-primary ml-1">Sign Up</span>
             </v-btn>
           </v-card-actions>
         </v-card>

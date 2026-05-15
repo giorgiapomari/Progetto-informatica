@@ -48,12 +48,12 @@ onMounted(async function() {
 
 <template>
     <v-container>
-        <h1 class="mb-5">Le mie Ricette Preferite</h1>
+        <h1 class="mb-5">My favourite recipes</h1>
         <div v-if="ricette.length > 0">
             <lista-ricette :ricette="ricette" @remove-recipe="eliminaDallaLista"></lista-ricette>
         </div>
         <v-alert v-else type="info" variant="tonal">
-            Non hai ancora salvato nessuna ricetta.
+            You haven't saved any recipes yet.
         </v-alert>
     </v-container>
 </template>
