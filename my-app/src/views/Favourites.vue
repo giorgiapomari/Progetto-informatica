@@ -3,11 +3,13 @@ import { onMounted, ref } from 'vue';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import axios from 'axios';
 import db from '@/firestore'
+import { API_KEY, API_BASE_URL } from '@/config';
 import ListaRicette from '@/components/ListaRicette.vue';
 
 const ricette = ref([]);
 // USA LA TUA API KEY DI SPOONACULAR
-const apiKey = 'cd31399f04b8490f99a11c2186f522e7'; 
+const apiKey = API_KEY; 
+const apiBaseUrl = API_BASE_URL;
 
 function eliminaDallaLista(id) {
     // Filtriamo usando .id (Spoonacular) invece di .idMeal
@@ -31,7 +33,7 @@ onMounted(async function() {
     for (let id of preferitiIds) {
         try {
             // URL corretto per Spoonacular: get recipe information by ID
-            const url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`;
+            const url = `${apiBaseUrl}/recipes/${id}/information?apiKey=${apiKey}`;
             const response = await axios.get(url);
             
             if (response.data) {

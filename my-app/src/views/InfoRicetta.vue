@@ -1,6 +1,7 @@
 <script setup>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import { API_KEY, API_BASE_URL } from '@/config';
 import db from "@/firestore"; // Assicurati che il percorso sia corretto
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 
@@ -52,8 +53,9 @@ const loading = ref(true);
 
 onMounted(async () => {
     // La API Key è di Giorgia Pomari
-    const apiKey = 'cd31399f04b8490f99a11c2186f522e7';
-    const url = `https://api.spoonacular.com/recipes/${props.recipeId}/information?apiKey=${apiKey}`;
+    const apiKey = API_KEY;
+    const apiBaseUrl = API_BASE_URL;
+    const url = `${apiBaseUrl}/recipes/${props.recipeId}/information?apiKey=${apiKey}`;
 
     try {
         const response = await axios.get(url);

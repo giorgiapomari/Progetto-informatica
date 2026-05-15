@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { onBeforeRouteUpdate } from 'vue-router';
+import { API_KEY, API_BASE_URL } from '@/config';
 import ListaRicette from '@/components/ListaRicette.vue';
 // Assicurati di avere un componente per la singola card o usa Vuetify direttamente qui
 // import RicettaCard from '@/components/RicettaCard.vue';
@@ -10,7 +11,8 @@ const props = defineProps(['type']); // 'type' sarà la cucina (es. italian, mex
 const ricette = ref([]);
 const caricamento = ref(false);
 
-const apiKey = 'cd31399f04b8490f99a11c2186f522e7'; // Inserisci qui la tua chiave Spoonacular
+const apiKey = API_KEY; 
+const apiBaseUrl = API_BASE_URL;
 
 function caricaRicette(cucina) {
     caricamento.value = true;
@@ -18,7 +20,7 @@ function caricaRicette(cucina) {
 
     // Endpoint per cercare ricette in base alla cucina (cuisine)
     // ✅ URL CORRETTO (rimosso /food)
-    const url = `https://api.spoonacular.com/recipes/complexSearch?cuisine=${cucina}&apiKey=${apiKey}&number=12`;
+    const url = `${apiBaseUrl}/recipes/complexSearch?cuisine=${cucina}&apiKey=${apiKey}&number=12`;
 
     axios.get(url)
         .then(response => {
