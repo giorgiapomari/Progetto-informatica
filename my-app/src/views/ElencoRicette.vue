@@ -46,17 +46,28 @@ onMounted(() => {
 
 <template>
     <v-container>
+        <!-- 1. Il Titolo della pagina -->
         <h1 class="text-capitalize mb-6">Cucina {{ type }}</h1>
 
-        <v-row v-if="caricamento" justify="center">
-            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        <!-- 2. Riga per il CARICAMENTO: si accende solo se 'caricamento' è true -->
+        <v-row v-if="caricamento" justify="center" class="py-10">
+            <v-col cols="12" class="text-center">
+                <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+            </v-col>
         </v-row>
 
+        <!-- 3. Riga per i RISULTATI: si accende in alternativa (v-else) -->
         <v-row v-else>
-            <lista-ricette :ricette="ricette"></lista-ricette>
+            <!-- La lista delle ricette (che internamente avrà le sue colonne per le card) -->
+            <v-col cols="12">
+                <lista-ricette :ricette="ricette"></lista-ricette>
+            </v-col>
 
-            <v-col v-if="ricette.length === 0 && !caricamento" cols="12">
-                <v-alert type="info">Nessuna ricetta trovata per questa categoria.</v-alert>
+            <!-- Messaggio di avviso se l'array è vuoto -->
+            <v-col v-if="ricette.length === 0" cols="12">
+                <v-alert type="info" variant="tonal">
+                    Nessuna ricetta trovata per questa categoria.
+                </v-alert>
             </v-col>
         </v-row>
     </v-container>
