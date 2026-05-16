@@ -72,7 +72,7 @@ function apriRicetta(ricetta) {
 
 <template>
   <v-app>
-    <v-layout v-if="authenticated">
+    <v-layout v-if="authenticated && $route.path !== '/login'">
       <v-navigation-drawer v-model="drawer" temporary>
         <v-list color="primary">
           <v-list-item prepend-icon="mdi-home" to="/home" link title="Homepage"></v-list-item>
