@@ -76,7 +76,7 @@ function apriRicetta(ricetta) {
       <v-navigation-drawer v-model="drawer" temporary>
         <v-list color="primary">
           <v-list-item prepend-icon="mdi-home" to="/home" link title="Homepage"></v-list-item>
-          <v-list-item prepend-icon="mdi-heart" to="/favourites" link title="Ricette preferite"></v-list-item>
+          <v-list-item prepend-icon="mdi-heart" to="/favourites" link title="Favorite recipes"></v-list-item>
 
           <v-divider class="my-2"></v-divider>
           <v-list-subheader>FOOD FROM THE WORLD</v-list-subheader>
