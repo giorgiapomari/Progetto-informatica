@@ -42,7 +42,7 @@ async function inviaForm() {
         commentText.value = "";
         caricaCommenti(); // Ricarica la lista dopo l'invio
     } catch (e) {
-        alert("Errore nell'inserimento del commento");
+        alert("Error submitting comment. Please try again.");
     }
 }
 
@@ -119,12 +119,12 @@ onMounted(async () => {
 
                 <v-card variant="outlined" class="pa-4 mb-6">
                     <v-form @submit.prevent="inviaForm">
-                        <v-text-field v-model="commentSubject" label="Oggetto" :rules="rules" variant="outlined"
+                        <v-text-field v-model="commentSubject" label="Subject" :rules="rules" variant="outlined"
                             density="compact"></v-text-field>
-                        <v-textarea v-model="commentText" label="Il tuo commento..." :rules="rules" variant="outlined"
+                        <v-textarea v-model="commentText" label="Your comment..." :rules="rules" variant="outlined"
                             rows="3"></v-textarea>
                         <v-btn color="primary" type="submit" prepend-icon="mdi-send">
-                            Invia Commento
+                            Submit Comment
                         </v-btn>
                     </v-form>
                 </v-card>
@@ -134,7 +134,7 @@ onMounted(async () => {
                         <v-card-item>
                             <v-card-title>{{ c.titolo }}</v-card-title>
                             <v-card-subtitle>
-                                Inviato da: <strong>{{ c.utente }}</strong>
+                                Submitted by: <strong>{{ c.utente }}</strong>
                             </v-card-subtitle>
                         </v-card-item>
                         <v-card-text>{{ c.testo }}</v-card-text>
@@ -142,7 +142,7 @@ onMounted(async () => {
                 </v-list>
 
                 <v-alert v-else type="info" variant="tonal">
-                    Nessun commento presente. Sii il primo a commentare!
+                    No comments yet. Be the first to comment!
                 </v-alert>
             </v-col>
         </v-row>
