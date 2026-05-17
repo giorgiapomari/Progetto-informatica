@@ -11,7 +11,7 @@ const props = defineProps(['type']); // 'type' sarà la cucina (es. italian, mex
 const ricette = ref([]);
 const caricamento = ref(false);
 
-const apiKey = API_KEY; 
+const apiKey = API_KEY;
 const apiBaseUrl = API_BASE_URL;
 
 function caricaRicette(cucina) {
@@ -20,14 +20,15 @@ function caricaRicette(cucina) {
 
     // Endpoint per cercare ricette in base alla cucina (cuisine)
     // ✅ URL CORRETTO (rimosso /food)
-    const url = `${apiBaseUrl}/recipes/complexSearch?cuisine=${cucina}&apiKey=${apiKey}&number=12`;
+    // In elencoRicette.vue
+    const url = `${apiBaseUrl}/recipes/complexSearch?cuisine=${cucina}&apiKey=${apiKey}&number=12&addRecipeInformation=true`;
 
     axios.get(url)
         .then(response => {
             // Spoonacular mette i risultati dentro l'oggetto .results
             ricette.value = response.data.results;
         })
-        .catch(err => console.error("Errore nel caricamento:", err))
+        .catch(err => console.error("Loading error:", err))
         .finally(() => {
             caricamento.value = false;
         });
@@ -46,28 +47,17 @@ onMounted(() => {
 
 <template>
     <v-container>
-        <!-- 1. Il Titolo della pagina -->
-        <h1 class="text-capitalize mb-6">Cucina {{ type }}</h1>
+        <h1 class="text-capitalize mb-6">Cuisine {{ type }}</h1>
 
-        <!-- 2. Riga per il CARICAMENTO: si accende solo se 'caricamento' è true -->
-        <v-row v-if="caricamento" justify="center" class="py-10">
-            <v-col cols="12" class="text-center">
-                <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
-            </v-col>
+        <v-row v-if="caricamento" justify="center">
+            <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </v-row>
 
-        <!-- 3. Riga per i RISULTATI: si accende in alternativa (v-else) -->
         <v-row v-else>
-            <!-- La lista delle ricette (che internamente avrà le sue colonne per le card) -->
-            <v-col cols="12">
-                <lista-ricette :ricette="ricette"></lista-ricette>
-            </v-col>
+            <lista-ricette :ricette="ricette"></lista-ricette>
 
-            <!-- Messaggio di avviso se l'array è vuoto -->
-            <v-col v-if="ricette.length === 0" cols="12">
-                <v-alert type="info" variant="tonal">
-                    Nessuna ricetta trovata per questa categoria.
-                </v-alert>
+            <v-col v-if="ricette.length === 0 && !caricamento" cols="12">
+                <v-alert type="info">No recipes found for this cuisine.</v-alert>
             </v-col>
         </v-row>
     </v-container>
