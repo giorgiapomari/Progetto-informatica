@@ -1,4 +1,4 @@
-export const API_KEY = '0724ccec24724ae78c3ccdef0fdfb85f'
+export const API_KEY = '60c5a95294074a7f9f674bc6f80f55af'
 export const API_BASE_URL = 'https://api.spoonacular.com'
 
 /*
