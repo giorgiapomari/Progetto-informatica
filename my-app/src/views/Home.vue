@@ -38,15 +38,15 @@ onMounted(() => {
     <v-row justify="center" class="text-center mb-10">
       <v-col cols="12" md="8">
         <h1 class="text-h2 font-weight-bold primary--text mb-2">
-          Benvenut*, {{ nomeUtente }}! 👋
+          Welcome, {{ nomeUtente }}! 👋
         </h1>
         <h2 class="text-h5 text-grey-darken-1 font-italic mb-6">
-          Esplora una cultura diversa ogni giorno
+          Explore a different culture of flavors every day with SpoonApp!
         </h2>
         <p class="text-body-1 text-grey-darken-2">
-          Benvenuto su <strong>SpoonApp</strong>, il tuo compagno ideale in cucina. 
-          Qui puoi esplorare sapori da ogni angolo del mondo, salvare i tuoi piatti preferiti 
-          e lasciarti ispirare per la tua prossima cena speciale.
+          Welcome to <strong>SpoonApp</strong>, the ultimate cooking companion. 
+          Here you can explore flavors from every corner of the world, save your favorite dishes 
+          and get inspired for your next special dinner.
         </p>
       </v-col>
     </v-row>
@@ -56,12 +56,12 @@ onMounted(() => {
     <v-row>
       <v-col cols="12" class="d-flex align-center mb-4">
         <v-icon color="orange-darken-2" size="32" class="me-2">mdi-star</v-icon>
-        <h2 class="text-h4 font-weight-black">Ricette in Evidenza</h2>
+        <h2 class="text-h4 font-weight-black">Featured recipes</h2>
       </v-col>
 
       <v-col v-if="caricamento" cols="12" class="text-center py-10">
         <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
-        <p class="mt-4 text-grey">Stiamo scegliendo le migliori ricette per te...</p>
+        <p class="mt-4 text-grey">We are choosing the best recipes for you...</p>
       </v-col>
 
       <v-col 
@@ -95,7 +95,7 @@ onMounted(() => {
               </v-chip>
               <v-chip size="small" color="green">
                 <v-icon start icon="mdi-silverware-fork-knife"></v-icon>
-                {{ ricetta.servings }} porz.
+                {{ ricetta.servings }} port.
               </v-chip>
             </div>
             <p class="text-truncate-2 text-body-2 text-grey-darken-1">
@@ -105,7 +105,7 @@ onMounted(() => {
 
           <v-card-actions class="pb-4 px-4">
             <v-btn block color="primary" variant="flat" rounded="lg">
-              Vedi Preparazione
+              See preparation
             </v-btn>
           </v-card-actions>
         </v-card>
