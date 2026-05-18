@@ -90,7 +90,7 @@ onMounted(function() {
                         </v-chip>
                         <v-chip size="small" color="green" v-if="ricetta.servings">
                             <v-icon start icon="mdi-silverware-fork-knife"></v-icon>
-                            {{ ricetta.servings }} porz.
+                            {{ ricetta.servings }} port.
                         </v-chip>
                     </div>
                     
@@ -98,13 +98,13 @@ onMounted(function() {
                         {{ ricetta.summary.replace(/<[^>]*>/g, '') }}
                     </p>
                     <p v-else class="text-body-2 text-grey-darken-1">
-                        Clicca per scoprire i dettagli di questa deliziosa ricetta Spoonacular.
+                        Click to find out the details of this delicious Spoonacular recipe.
                     </p>
                 </v-card-text>
 
                 <v-card-actions class="pb-4 px-4">
                     <v-btn block color="primary" variant="flat" rounded="lg">
-                        Vedi Preparazione
+                        See preparation
                     </v-btn>
                 </v-card-actions>
             </v-card>
