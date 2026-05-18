@@ -12,15 +12,27 @@ const caricamento = ref(true);
 const apiKey = API_KEY; 
 const apiBaseUrl = API_BASE_URL;
 
-async function caricaRicetteCasuali() {
+async function caricaRicetteCasuali(forzaAggiornamento = false) {
+    // Se non forziamo l'aggiornamento, prova a recuperare le ricette dalla sessione
+    if (!forzaAggiornamento) {
+        const salvate = localStorage.getItem("ricetteEvidenza");
+        if (salvate) {
+            ricetteRandom.value = JSON.parse(salvate);
+            caricamento.value = false;
+            return;
+        }
+    }
+
     caricamento.value = true;
     try {
-        // Endpoint per ottenere ricette casuali
         const url = `${apiBaseUrl}/recipes/random?number=3&apiKey=${apiKey}`;
         const response = await axios.get(url);
         ricetteRandom.value = response.data.recipes;
+        
+        // Salva le nuove ricette nella sessione del browser
+        localStorage.setItem("ricetteEvidenza", JSON.stringify(ricetteRandom.value));
     } catch (error) {
-        console.error("Errore nel caricamento delle ricette casuali:", error);
+        console.error("Error loading the recipes", error);
     } finally {
         caricamento.value = false;
     }
@@ -28,7 +40,7 @@ async function caricaRicetteCasuali() {
 
 onMounted(() => {
     // Recupera il nome dell'utente loggato
-    nomeUtente.value = db.getUser() || "Ospite";
+    nomeUtente.value = db.getUser() || "Guest";
     caricaRicetteCasuali();
 });
 </script>
@@ -38,9 +50,9 @@ onMounted(() => {
     <v-row justify="center" class="text-center mb-10">
       <v-col cols="12" md="8">
         <h1 class="text-h2 font-weight-bold primary--text mb-2">
-          Welcome, {{ nomeUtente }}! 👋
+          Welcome, {{ nomeUtente }}!
         </h1>
-        <h2 class="text-h5 text-grey-darken-1 font-italic mb-6">
+        <h2 class="text-h5 text-grey-darken-1 font mb-6">
           Explore a different culture of flavors every day with SpoonApp!
         </h2>
         <p class="text-body-1 text-grey-darken-2">
@@ -54,9 +66,14 @@ onMounted(() => {
     <v-divider class="my-10"></v-divider>
 
     <v-row>
-      <v-col cols="12" class="d-flex align-center mb-4">
-        <v-icon color="orange-darken-2" size="32" class="me-2">mdi-star</v-icon>
-        <h2 class="text-h4 font-weight-black">Featured recipes</h2>
+      <v-col cols="12" class="d-flex align-center justify-space-between">
+        <div class="d-flex align-center">
+          <v-icon color="orange-darken-2" size="32" class="me-2">mdi-star</v-icon>
+          <h2 class="text-h4 font-weight-black">Featured recipes</h2>
+        </div>
+        <v-btn class="mb-4" color="primary" variant="outlined" prepend-icon="mdi-refresh" @click="caricaRicetteCasuali(true)">
+          New recipes
+        </v-btn>
       </v-col>
 
       <v-col v-if="caricamento" cols="12" class="text-center py-10">
@@ -132,4 +149,5 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 </style>
