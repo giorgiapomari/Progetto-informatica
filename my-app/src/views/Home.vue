@@ -49,10 +49,10 @@ onMounted(() => {
   <v-container class="py-8">
     <v-row justify="center" class="text-center mb-10">
       <v-col cols="12" md="8">
-        <h1 class="text-h2 font-weight-bold primary--text mb-2">
+        <h1 class="text-h2 font-weight-bold primary--text mb-2" style= "font-family: Arial Rounded MT" >
           Welcome, {{ nomeUtente }}!
         </h1>
-        <h2 class="text-h5 text-grey-darken-1 font mb-6">
+        <h2 class="text-h5 text-grey-darken-1 font mb-6"style="font-family: Arial Rounded MT;">
           Explore a different culture of flavors every day with SpoonApp!
         </h2>
         <p class="text-body-1 text-grey-darken-2">
@@ -69,7 +69,7 @@ onMounted(() => {
       <v-col cols="12" class="d-flex align-center justify-space-between">
         <div class="d-flex align-center">
           <v-icon color="orange-darken-2" size="32" class="me-2">mdi-star</v-icon>
-          <h2 class="text-h4 font-weight-black">Featured recipes</h2>
+          <h2 class="text-h4 font-weight-black" style="font-family: Arial Rounded MT">Featured recipes</h2>
         </div>
         <v-btn class="mb-4" color="primary" variant="outlined" prepend-icon="mdi-refresh" @click="caricaRicetteCasuali(true)">
           New recipes

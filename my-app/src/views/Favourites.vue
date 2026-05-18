@@ -48,7 +48,7 @@ onMounted(async function() {
 
 <template>
     <v-container>
-        <h1 class="mb-5">My favourite recipes</h1>
+        <h1 class="mb-5" style="font-family: Arial Rounded MT">My favourite recipes</h1>
         <div v-if="ricette.length > 0">
             <lista-ricette :ricette="ricette" @remove-recipe="eliminaDallaLista"></lista-ricette>
         </div>

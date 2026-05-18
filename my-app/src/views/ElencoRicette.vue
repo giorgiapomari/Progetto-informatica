@@ -10,6 +10,13 @@ import ListaRicette from '@/components/ListaRicette.vue';
 const props = defineProps(['type']); // 'type' sarà la cucina (es. italian, mexican)
 const ricette = ref([]);
 const caricamento = ref(false);
+const iconeCucina = {
+    italian: 'mdi-pizza',
+    french: 'mdi-cheese',
+    indian: 'mdi-pot-steam',
+    japanese: 'mdi-noodles',
+    mexican: 'mdi-taco'
+};
 
 const apiKey = API_KEY;
 const apiBaseUrl = API_BASE_URL;
@@ -47,7 +54,10 @@ onMounted(() => {
 
 <template>
     <v-container>
-        <h1 class="text-capitalize mb-6">Cuisine {{ type }}</h1>
+        <h1 class="mb-6 d-flex align-center" style="font-family: Arial Rounded MT">
+            <v-icon size="35" class="mr-3">{{ iconeCucina[type.toLowerCase()] || 'mdi-silverware-fork-knife' }}</v-icon>
+            {{ type.charAt(0).toUpperCase() + type.slice(1) }} cuisine
+        </h1>
 
         <v-row v-if="caricamento" justify="center">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
