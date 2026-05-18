@@ -48,7 +48,8 @@ onMounted(function() {
 </script>
 
 <template>
-    <v-row>
+    <v-container>
+        <v-row>
         <v-col 
             v-for="ricetta in ricette" 
             :key="ricetta.id" 
@@ -109,6 +110,8 @@ onMounted(function() {
             </v-card>
         </v-col>
     </v-row>
+    </v-container>
+    
 </template>
 
 <style scoped>
