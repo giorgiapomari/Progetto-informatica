@@ -95,6 +95,7 @@ onMounted(() => {
         >
           <v-img
             :src="ricetta.image"
+            :alt="ricetta.title"
             height="220px"
             cover
             class="align-end"
