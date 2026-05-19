@@ -94,38 +94,41 @@ function apriRicetta(ricetta) {
       <v-app-bar color="primary" elevation="2">
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
         
-        <v-app-bar-title style="min-width: 160px; flex: none;">SpoonApp 🍳</v-app-bar-title>
+        <v-app-bar-title class="d-none d-sm-flex font-weight-bold" style="max-width: 160px;">
+          SpoonApp 🍳
+        </v-app-bar-title>
 
         <v-spacer></v-spacer>
-
         <v-autocomplete
-          v-model="searchQuery"
-          v-model:search="searchInput"
-          :items="suggestions"
-          :loading="loadingSearch"
-          item-title="title"
-          item-value="id"
-          return-object
-          @update:modelValue="apriRicetta"
-          prepend-inner-icon="mdi-magnify"
-          placeholder="Search recipes..."
-          variant="solo-filled"
-          flat
-          hide-details
-          rounded
-          density="compact"
-          class="mx-4" 
-          style="max-width: 450px; width: 100%;"
-          clearable
-          no-data-text="No recipes found"
-        ></v-autocomplete>
+        v-model="searchQuery"
+        v-model:search="searchInput"
+        :items="suggestions"
+        :loading="loadingSearch"
+        item-title="title"
+        item-value="id"
+        return-object
+        @update:modelValue="apriRicetta"
+        prepend-inner-icon="mdi-magnify"
+        placeholder="Search recipes..."
+        variant="solo-filled"
+        flat
+        hide-details
+        rounded
+        density="compact"
+        
+        class="flex-grow-1 mx-2"
+        
+        :style="{ maxWidth: $vuetify.display.mobile ? '100%' : '450px' }"
+        
+        clearable
+        no-data-text="No recipes found"
+      ></v-autocomplete>
 
-        <v-spacer></v-spacer>
 
         <v-menu min-width="200px" rounded>
           <template v-slot:activator="{ props }">
             <v-btn icon v-bind="props" class="me-4">
-              <v-avatar color="white" size="large">
+              <v-avatar color="white" size="small">
                 <v-icon color="primary">mdi-account</v-icon>
               </v-avatar>
             </v-btn>
